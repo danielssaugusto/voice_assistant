@@ -18,6 +18,18 @@ def listeningAssistant():
         except sr.RequestError as e:
             voiceAssistant(f'Erro ao recuperar resultados {e}')
             return ''
+        
+def voiceAssistant(message, velocidade=150, volume=1.0):
+    engine = pyttsx3.init()
+    engine.setProperty('rate', velocidade)
+    engine.setProperty('volume', volume)
+
+    voices = engine.getProperty('voices')
+    engine.setProperty('voice', voices[1].id)
+
+    engine.say(message)
+    print(f'Assistant: {message}')
+    engine.runAndWait()
 
 def user():
     typeUser = input(f'You: ')
