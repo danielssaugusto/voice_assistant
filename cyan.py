@@ -1,6 +1,35 @@
-def voiceAssistant(message):
-    voice = print(f'Assistant: {message}')
-    return voice
+import speech_recognition as sr
+import pyttsx3
+
+def listeningAssistant():
+    recognizer = sr.Recognizer()
+    with sr.Microphone() as source:
+        voiceAssistant('Diga algo...')
+        recognizer.adjust_for_ambient_noise(source)
+        audio = recognizer.listen(source)
+
+        try:
+            message = recognizer.recognize_google_cloud(audio, language='pt-BR')
+            voiceAssistant(f'Você disse: {message}')
+            return message
+        except sr.UnknownValueError:
+            voiceAssistant('Não entendi o que você disse.')
+            return ''
+        except sr.RequestError as e:
+            voiceAssistant(f'Erro ao recuperar resultados {e}')
+            return ''
+
+def voiceAssistant(message, velocidade=150, volume=1.0):
+    engine = pyttsx3.init()
+    engine.setProperty('rate', velocidade)
+    engine.setProperty('volume', volume)
+
+    voices = engine.getProperty('voices')
+    engine.setProperty('voice', voices[1].id)
+
+    engine.say(message)
+    print(f'Assistant: {message}')
+    engine.runAndWait()
 
 def user():
     typeUser = input(f'You: ')
@@ -29,4 +58,8 @@ if __name__ == '__main__':
     voiceAssistant('Olá! em que posso ajudar?')
     while True:
         userInput = user()
+        if userInput == 1:
+            user()
+        elif userInput == 2:
+            listeningAssistant()
         main(userInput)
