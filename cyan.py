@@ -57,9 +57,4 @@ def main(message):
 if __name__ == '__main__':
     voiceAssistant('Olá! em que posso ajudar?')
     while True:
-        userInput = user()
-        if userInput == 1:
-            user()
-        elif userInput == 2:
-            listeningAssistant()
-        main(userInput)
+        listeningAssistant()
