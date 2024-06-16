@@ -3,22 +3,25 @@ import pyttsx3
 
 def listeningAssistant():
     recognizer = sr.Recognizer()
-    with sr.Microphone() as source:
-        voiceAssistant('Diga algo...')
-        recognizer.adjust_for_ambient_noise(source)
-        audio = recognizer.listen(source)
+    voiceAssistant('Olá! em que posso ajudar?')
 
-        try:
-            message = recognizer.recognize_google_cloud(audio, language='pt-BR')
-            voiceAssistant(f'Você disse: {message}')
-            return message
-        except sr.UnknownValueError:
-            voiceAssistant('Não entendi o que você disse.')
-            return ''
-        except sr.RequestError as e:
-            voiceAssistant(f'Erro ao recuperar resultados {e}')
-            return ''
-        
+    while True:
+        with sr.Microphone() as source:
+            print('Diga algo...')
+            recognizer.adjust_for_ambient_noise(source)
+            audio = recognizer.listen(source)
+
+            try:
+                message = recognizer.recognize_sphinx(audio, language='pt-BR')
+                print(f'Você disse: {message}')
+                return message
+            except sr.UnknownValueError:
+                voiceAssistant('Não entendi o que você disse.')
+                return ''
+            except sr.RequestError as e:
+                voiceAssistant(f'Erro ao recuperar resultados {e}')
+                return ''
+            
 def voiceAssistant(message, velocidade=150, volume=1.0):
     engine = pyttsx3.init()
     engine.setProperty('rate', velocidade)
@@ -55,6 +58,5 @@ def main(message):
         task()
 
 if __name__ == '__main__':
-    voiceAssistant('Olá! em que posso ajudar?')
     while True:
         listeningAssistant()
