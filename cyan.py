@@ -7,7 +7,7 @@ def listeningAssistant():
 
     while True:
         with sr.Microphone() as source:
-            print('Diga algo...')
+            print('Estou te ouvindo...')
             recognizer.adjust_for_ambient_noise(source)
             audio = recognizer.listen(source)
 
@@ -40,7 +40,7 @@ def user():
 
 def task():
     while True:
-        voiceAssistant('O que você quer colocar na sua agenda? (ou digite "sair")')
+        voiceAssistant('O que você quer que eu te lembre? (ou digite "sair")')
         userInput = user()
 
         if userInput == 'sair':
