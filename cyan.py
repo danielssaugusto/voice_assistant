@@ -3,23 +3,23 @@ import pyttsx3
 
 def listeningAssistant():
     recognizer = sr.Recognizer()
-    voiceAssistant('Olá! em que posso ajudar?')
+    voiceAssistant('Hey there! How can I help you today?')
 
     while True:
         with sr.Microphone() as source:
-            print('Estou te ouvindo...')
+            print('Listening...')
             recognizer.adjust_for_ambient_noise(source)
             audio = recognizer.listen(source)
 
             try:
-                message = recognizer.recognize_sphinx(audio, language='pt-BR')
-                print(f'Você disse: {message}')
+                message = recognizer.recognize_sphinx(audio, language='en-US')
+                print(f'You said: {message}')
                 return message
             except sr.UnknownValueError:
-                voiceAssistant('Não entendi o que você disse.')
+                voiceAssistant("Sorry, I didn't catch that.")
                 return ''
             except sr.RequestError as e:
-                voiceAssistant(f'Erro ao recuperar resultados {e}')
+                voiceAssistant(f'Oops, error retrieving results: {e}')
                 return ''
             
 def voiceAssistant(message, velocidade=150, volume=1.0):
@@ -40,21 +40,21 @@ def user():
 
 def task():
     while True:
-        voiceAssistant('O que você quer que eu te lembre? (ou digite "sair")')
+        voiceAssistant('What do you want me to remember? or type "exit"')
         userInput = user()
 
-        if userInput == 'sair':
-            voiceAssistant('Saindo...')
+        if userInput == 'exit':
+            voiceAssistant('Okay, exiting now...')
             break
 
-        voiceAssistant('Tarefa adicionada!\nDeseja continuar?')
+        voiceAssistant('Task added! Do you want to continue?')
         userInput = user()
-        if userInput != 'sim':
-            voiceAssistant('Anotado!')
+        if userInput != 'yes':
+            voiceAssistant('Noted!')
             break
             
 def main(message):
-    if 'adicionar' in message and 'tarefa' in message:
+    if 'add' in message and 'task' in message:
         task()
 
 if __name__ == '__main__':
