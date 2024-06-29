@@ -1,6 +1,7 @@
 import speech_recognition as sr
 import pyttsx3
 
+
 def listeningAssistant():
     recognizer = sr.Recognizer()
     voiceAssistant('Hey there! How can I help you today?')
