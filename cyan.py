@@ -26,6 +26,7 @@ class VoiceAssistant:
         recognizer = sr.Recognizer()
         cls.voiceAssistant('Hey there! How can I help you today?')
 
+        # Controle de audição
         while True:
             with sr.Microphone() as source:
                 print('Listening...')
@@ -33,7 +34,7 @@ class VoiceAssistant:
                 audio = recognizer.listen(source)
 
                 try:
-                    message = recognizer.recognize_sphinx(audio, language='en-US')
+                    message = recognizer.recognize_google_cloud(audio, language='en-US')
                     print(f'You said: {message}')
                     return message
                 except sr.UnknownValueError:
@@ -43,6 +44,7 @@ class VoiceAssistant:
                     cls.voiceAssistant(f'Oops, error retrieving results: {e}')
                     return ''
 
+    # Voz da assistente
     @staticmethod                
     def voiceAssistant(message, velocidade=150, volume=1.0):
         """
@@ -69,6 +71,7 @@ class VoiceAssistant:
         print(f'Assistant: {message}')
         engine.runAndWait()
 
+    # Exibe a entrada do usuário
     def user():
         """
         English:
@@ -80,6 +83,7 @@ class VoiceAssistant:
         typeUser = input(f'You: ')
         return typeUser.lower()
 
+# Função de tarefa
 def task():
     while True:
         assistant = VoiceAssistant()
@@ -95,11 +99,13 @@ def task():
         if userInput != 'yes':
             assistant.voiceAssistant('Noted!')
             break
-            
+
+# Menu princípal  
 def main(message):
     if 'add' in message and 'task' in message:
         task()
 
+# Iniciando programa
 if __name__ == '__main__':
     while True:
         assistant = VoiceAssistant()
