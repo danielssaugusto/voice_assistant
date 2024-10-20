@@ -27,11 +27,12 @@ def speech_recognition():
     print("Iniciando o recognizer")
     recognizer = sr.Recognizer()
     print("Recognizer funcionando")
-    voice("Olá, como posso ajudar?")
 
     with sr.Microphone() as source:
         print("Ajustando para o ruído de ambiente...")
         recognizer.adjust_for_ambient_noise(source, duration=1)
+        voice("Olá, como posso ajudar?")
+
 
         while True:
             print("Ouvindo...")
