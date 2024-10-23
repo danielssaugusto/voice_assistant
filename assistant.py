@@ -1,10 +1,9 @@
 import speech_recognition as sr
 import pyttsx3
 
-
 # Fala
 # Velocidade original da fala: 150
-def voice(message, rate=200, volume=1.0, voice_id=0):
+def voice(message, rate=220, volume=1.0, voice_id=0):
     engine = pyttsx3.init()
 
     engine.setProperty('rate', rate)
@@ -19,7 +18,6 @@ def voice(message, rate=200, volume=1.0, voice_id=0):
     engine.say(message)
     print(f'Assistant: {message}')
     engine.runAndWait()
-
 
 # Escuta
 def speech_recognition():

@@ -64,9 +64,8 @@ def read_reminders():
     print("\nLembretes:")
     for index, reminder in enumerate(reminders, start=1):
         print(f"""
-    Número: {index}, 
     ID: {reminder['_id']}, 
-    Título: {reminder['title']}, 
+    Número: {index} | Título: {reminder['title']}, 
     Descrição: {reminder['description']}, 
     Criado em: {reminder['data_criacao']}, 
     Completo: {reminder['completed']}
@@ -125,17 +124,31 @@ def delete_reminder():
         return
 
     try:
-        choice = int(input("Selecione o número do lembrete que deseja excluir: "))
-        if 1 <= choice <= len(reminders):
-            reminder_id = reminders[choice - 1]['_id']  # Pega o ID do lembrete selecionado
-            task_collection, _ = db_connection()
-            result = task_collection.delete_one({"_id": ObjectId(reminder_id)})
-            if result.deleted_count > 0:
-                print(f"Lembrete com ID {reminder_id} excluído com sucesso.")
+        choice = input("Selecione o número do lembrete que deseja excluir [pressione * para deletar todos]: ")
+
+        
+        if choice == "*":
+            confirm = input("Você realmente deseja excluir todos os lembretes? (s/n): ")
+            if confirm.lower() == 's':
+                task_collection, _ = db_connection()
+                result = task_collection.delete_many({})
+                print(f"{result.deleted_count} lembretes excluídos com sucesso.")
             else:
-                print(f"Nenhum lembrete encontrado com ID {reminder_id}.")
+                print("Exclusão de todos os lembretes cancelada.")
+
         else:
-            print("Seleção inválida. Por favor, escolha um número válido.")
+            choice = int(choice)
+            if 1 <= choice <= len(reminders):
+                reminder_id = reminders[choice - 1]['_i d']  # Pega o ID do lembrete selecionado
+                task_collection, _ = db_connection()
+                result = task_collection.delete_one({"_id": ObjectId(reminder_id)})
+                if result.deleted_count > 0:
+                    print(f"Lembrete com ID {reminder_id} excluído com sucesso.")
+                else:
+                    print(f"Nenhum lembrete encontrado com ID {reminder_id}.")
+            else:
+                print("Seleção inválida. Por favor, escolha um número válido.")
+
     except ValueError:
         print("Por favor, insira um número válido.")
     except Exception as e:

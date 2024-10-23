@@ -2,25 +2,25 @@ from assistant import voice, speech_recognition, functions
 from reminder import test_connection, add_reminder, delete_reminder, read_reminders, edit_reminder
 
 def adicionar_lembrete():
-    """Função para adicionar um novo lembrete."""
+    print("\n----- Adicionar Lembrete -----")
     title = input("Título do lembrete: ")
     description = input("Descrição: ")
     add_reminder(title, description)
-    voice("Seu lembrete foi adicionado ao banco de dados!")
+    voice("Seu lembrete foi adicionado ao banco de dados!\n")
 
 def ler_lembretes():
-    """Função para ler todos os lembretes."""
+    print("\n----- Sua lista de lembretes -----")
     read_reminders()
 
 def editar_lembrete():
-    """Função para editar um lembrete existente."""
+    print("\n----- Menu de edição -----")
     voice("Qual lembrete você quer editar?")
-    edit_reminder()  # Chamando a função edit_reminder sem ID, já que a lógica foi alterada
+    edit_reminder()
 
 def excluir_lembrete():
-    """Função para excluir um lembrete existente."""
+    print("\n----- Excluir lembrete -----")
     voice("Qual lembrete você deseja excluir?")
-    delete_reminder()  # Chamando a função delete_reminder sem ID, já que a lógica foi alterada
+    delete_reminder()
 
 def display_functions(func_dict):
     voice("Funções disponíveis")
@@ -30,9 +30,8 @@ def display_functions(func_dict):
             print(f" - {function}")
 
 def main(message):
-    """Função principal que interpreta a mensagem do usuário e aciona as funções apropriadas."""
-
     if "lembrete" in message:
+        print("\n***** Testando Conexão *****")
         db_connection = test_connection()
         if db_connection:
             actions = {
