@@ -24,6 +24,7 @@ def excluir_lembrete():
 
 def main(message):
     """Função principal que interpreta a mensagem do usuário e aciona as funções apropriadas."""
+
     if "lembrete" in message:
         db_connection = test_connection()
         if db_connection:
@@ -42,5 +43,6 @@ def main(message):
                 voice("Desculpe, não entendi sua solicitação.")
 
 if __name__ == "__main__":
-    user = input("You: ")
-    main(user)
+    while True:
+        user = input("You: ")
+        main(user)
