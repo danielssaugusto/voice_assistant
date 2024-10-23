@@ -24,6 +24,8 @@ def main(message):
                 delete_reminder(id_lembrete)
                 voice(f"Lembrete com ID {id_lembrete} excluído!")
 
+
 if __name__ == "__main__":
-    user = speech_recognition()
+    # user = speech_recognition()
+    user = input("You: ")
     main(user)

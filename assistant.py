@@ -1,6 +1,5 @@
 import speech_recognition as sr
 import pyttsx3
-import time
 
 
 # Fala
@@ -29,28 +28,16 @@ def speech_recognition():
     print("Recognizer funcionando")
 
     with sr.Microphone() as source:
-        print("Ajustando para o ruído de ambiente...")
-        recognizer.adjust_for_ambient_noise(source, duration=1)
         voice("Olá, como posso ajudar?")
+        print("Ouvindo...")
+        audio = recognizer.listen(source, timeout=5)
 
-
-        while True:
-            print("Ouvindo...")
-            try:
-                audio = recognizer.listen(source)
-                print("Áudio captado")
-
-                message = recognizer.recognize_sphinx(audio)
-                print(f'Você disse: {message}')
-
-                if "parar" in message.lower():
-                    voice("Encerrando a assistente")
-                    break
-
-            except sr.WaitTimeoutError:
-                voice("Tempo de espera esgotado")
-            except sr.UnknownValueError:
-                voice('Desculpe, não consegui entender o que você disse, pode tentar de novo?')  
-            except sr.RequestError as e:
-                print(f'Parece que houve um problema com o serviço. Tente novamente mais tarde. {e}')
-            time.sleep(1)
+    try:
+        message = recognizer.recognize_sphinx(audio)
+        print(f'Você disse: {message}')
+    except sr.WaitTimeoutError:
+        voice("Tempo de espera esgotado")
+    except sr.UnknownValueError:
+        voice('Desculpe, não consegui entender o que você disse, pode tentar de novo?')  
+    except sr.RequestError as e:
+        print(f'Parece que houve um problema com o serviço. Tente novamente mais tarde. {e}')
