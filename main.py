@@ -1,4 +1,4 @@
-from assistant import voice, speech_recognition
+from assistant import voice, speech_recognition, functions
 from reminder import test_connection, add_reminder, delete_reminder, read_reminders, edit_reminder
 
 def adicionar_lembrete():
@@ -22,6 +22,13 @@ def excluir_lembrete():
     voice("Qual lembrete você deseja excluir?")
     delete_reminder()  # Chamando a função delete_reminder sem ID, já que a lógica foi alterada
 
+def display_functions(func_dict):
+    voice("Funções disponíveis")
+    for category, functions in func_dict.items():
+        print(f"\n{category}:")
+        for function in functions:
+            print(f" - {function}")
+
 def main(message):
     """Função principal que interpreta a mensagem do usuário e aciona as funções apropriadas."""
 
@@ -41,6 +48,10 @@ def main(message):
                     break
             else:
                 voice("Desculpe, não entendi sua solicitação.")
+
+    elif "ajuda" in message:
+        result = functions()
+        display_functions(result)
 
 if __name__ == "__main__":
     while True:

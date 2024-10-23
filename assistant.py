@@ -41,3 +41,15 @@ def speech_recognition():
         voice('Desculpe, não consegui entender o que você disse, pode tentar de novo?')  
     except sr.RequestError as e:
         print(f'Parece que houve um problema com o serviço. Tente novamente mais tarde. {e}')
+
+def functions():
+    funcoes = {
+        "Lembretes": [
+            "adicionar lembrete",
+            "ler lembretes",
+            "editar lembrete",
+            "excluir lembrete"
+        ],
+    }
+
+    return funcoes
