@@ -125,8 +125,7 @@ def delete_reminder():
 
     try:
         choice = input("Selecione o número do lembrete que deseja excluir [pressione * para deletar todos]: ")
-
-        
+  
         if choice == "*":
             confirm = input("Você realmente deseja excluir todos os lembretes? (s/n): ")
             if confirm.lower() == 's':

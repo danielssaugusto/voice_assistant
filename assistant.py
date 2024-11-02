@@ -26,19 +26,22 @@ def speech_recognition():
     print("Recognizer funcionando")
 
     with sr.Microphone() as source:
-        voice("Olá, como posso ajudar?")
+        recognizer.adjust_for_ambient_noise(source)
         print("Ouvindo...")
-        audio = recognizer.listen(source, timeout=5)
+        audio = recognizer.listen(source)
 
     try:
-        message = recognizer.recognize_sphinx(audio)
+        message = recognizer.recognize_google(audio, language="pt-BR")
         print(f'Você disse: {message}')
+        return message
     except sr.WaitTimeoutError:
         voice("Tempo de espera esgotado")
     except sr.UnknownValueError:
-        voice('Desculpe, não consegui entender o que você disse, pode tentar de novo?')  
+        voice('Desculpe, não consegui entender o que você disse, pode tentar de novo?') 
+        return "" 
     except sr.RequestError as e:
         print(f'Parece que houve um problema com o serviço. Tente novamente mais tarde. {e}')
+        return ""
 
 def functions():
     funcoes = {

@@ -53,6 +53,8 @@ def main(message):
         display_functions(result)
 
 if __name__ == "__main__":
+    voice("Olá, como posso ajudar?")
     while True:
-        user = input("You: ")
-        main(user)
+        user = speech_recognition()
+        if user:
+            main(user)
