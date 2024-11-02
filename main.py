@@ -1,12 +1,13 @@
 from assistant import voice, speech_recognition, functions
 from reminder import test_connection, add_reminder, delete_reminder, read_reminders, edit_reminder
+import sys
 
 def adicionar_lembrete():
     print("\n----- Adicionar Lembrete -----")
     title = input("Título do lembrete: ")
     description = input("Descrição: ")
     add_reminder(title, description)
-    voice("Seu lembrete foi adicionado ao banco de dados!\n")
+    voice("Claro! Vou lembrar disso para você! Pode deixar!\n")
 
 def ler_lembretes():
     print("\n----- Sua lista de lembretes -----")
@@ -14,16 +15,16 @@ def ler_lembretes():
 
 def editar_lembrete():
     print("\n----- Menu de edição -----")
-    voice("Qual lembrete você quer editar?")
+    voice("Ah, entendi! Qual tarefa você quer mudar agora?")
     edit_reminder()
 
 def excluir_lembrete():
     print("\n----- Excluir lembrete -----")
-    voice("Qual lembrete você deseja excluir?")
+    voice("Qual lembrete você quer que eu esqueça?")
     delete_reminder()
 
 def display_functions(func_dict):
-    voice("Funções disponíveis")
+    voice("Então, aqui estão as funções que você pode usar!")
     for category, functions in func_dict.items():
         print(f"\n{category}:")
         for function in functions:
@@ -46,11 +47,16 @@ def main(message):
                     actions[action]()
                     break
             else:
-                voice("Desculpe, não entendi sua solicitação.")
+                voice("Desculpe, mas não consegui pegar o que você disse.")
 
     elif "ajuda" in message:
         result = functions()
         display_functions(result)
+    
+    elif any(phrase in message for phrase in ["sair", "tchau", "adeus"]):
+        voice("Até mais!")
+        sys.exit()
+        
 
 if __name__ == "__main__":
     voice("Olá, como posso ajudar?")

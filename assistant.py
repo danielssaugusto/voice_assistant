@@ -31,16 +31,17 @@ def speech_recognition():
         audio = recognizer.listen(source)
 
     try:
-        message = recognizer.recognize_google(audio, language="pt-BR")
-        print(f'Você disse: {message}')
+        message = recognizer.recognize_google(audio, language="pt-BR").lower()
+        print(f"Você disse: {message}")
         return message
     except sr.WaitTimeoutError:
-        voice("Tempo de espera esgotado")
+        voice("Ah, o tempo de espera acabou!")
     except sr.UnknownValueError:
-        voice('Desculpe, não consegui entender o que você disse, pode tentar de novo?') 
+        voice("Desculpe, não entendi. Pode repetir, por favor?") 
         return "" 
     except sr.RequestError as e:
-        print(f'Parece que houve um problema com o serviço. Tente novamente mais tarde. {e}')
+        voice("Parece que estou enfrentando um probleminha agora e não consigo responder. Mas assim que der, vou voltar, tá?")
+        print(f'Error!. {e}')
         return ""
 
 def functions():
