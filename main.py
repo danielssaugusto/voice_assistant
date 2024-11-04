@@ -31,6 +31,7 @@ def display_functions(func_dict):
             print(f" - {function}")
 
 def main(message):
+    message = message.lower()
     if "lembrete" in message:
         print("\n***** Testando Conexão *****")
         db_connection = test_connection()
@@ -60,7 +61,12 @@ def main(message):
 
 if __name__ == "__main__":
     voice("Olá, como posso ajudar?")
+    print("Pode escrever... [Tecle Enter para falar] ")
     while True:
-        user = speech_recognition()
-        if user:
-            main(user)
+        escolha = input("You: ")
+        if escolha == "":
+            user = speech_recognition()
+            if user:
+                main(user)
+        else:
+            main(escolha)
