@@ -65,9 +65,9 @@ def read_reminders():
     for index, reminder in enumerate(reminders, start=1):
         print(f"""
     ID: {reminder['_id']}, 
-    Número: {index} | Título: {reminder['title']}, 
-    Descrição: {reminder['description']}, 
-    Criado em: {reminder['data_criacao']}, 
+    Número: {index} | Título: {reminder['title']} 
+    Descrição: {reminder['description']} 
+    Criado em: {reminder['data_criacao']} 
     Completo: {reminder['completed']}
 """)
 
